@@ -7,7 +7,6 @@ function App() {
   const [data, setData] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
   //Pentru POST
-  const [pressed, setPressed] = useState("+");
   const [favouritesFetched, setFavouritesFetch] = useState(null);
 
   //Countries Fetch
@@ -69,7 +68,6 @@ function App() {
   };
 
   const postWhenPressed = async () => {
-    setPressed("-");
 
     let countryInfos = {
       name: "",
@@ -105,7 +103,6 @@ function App() {
             countries={searchedCountry}
             onLearn={handleCountryDetails}
             actionInput={inputSearch}
-            buttonSymbol={pressed}
             addToFavouritesButton={postWhenPressed}
           />
         </div>
