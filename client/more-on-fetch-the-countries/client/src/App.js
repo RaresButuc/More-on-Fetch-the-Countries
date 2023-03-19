@@ -6,13 +6,31 @@ import CountryData from "./components/CountryData";
 function App() {
   const [data, setData] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
+  //Pentru POST
+  const [pressed, setPressed] = useState("+");
+  const [favouritesFetched, setFavouritesFetch] = useState(null);
 
+  //Countries Fetch
   useEffect(() => {
     async function fetchData() {
       try {
         const info = await fetch("https://restcountries.com/v3.1/all");
         const countries = await info.json();
         setData(countries);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  //Favourites Fetch
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const info = await fetch("http://127.0.0.1:9001/favourites");
+        const favourites = await info.json();
+        setFavouritesFetch(favourites);
       } catch (error) {
         console.error(error);
       }
@@ -43,13 +61,36 @@ function App() {
   const [searchedCountry, setsearchedCountry] = useState([...data]);
 
   const inputSearch = (e) => {
-    const searched = e.target.value
-    // var updatedList = [...data].filter((item) => {
-    //   return item.toLowerCase().indexOf(searched.toLowerCase()) !== -1;
-    // });
-    const results = [...data].filter((all =>  all.name.common.toLowerCase().includes(searched.toLowerCase())))
-    setsearchedCountry(results)
-  }
+    const searched = e.target.value;
+    const results = [...data].filter((all) =>
+      all.name.common.toLowerCase().includes(searched.toLowerCase())
+    );
+    setsearchedCountry(results);
+  };
+
+  const postWhenPressed = async () => {
+    setPressed("-");
+
+    let countryInfos = {
+      Name: "",
+      Capital: "",
+      Independent: "",
+      Area: "",
+      Continent: "",
+      Region: "",
+      Subregion: "",
+      Languages: "",
+      Population: "",
+    };
+
+    const reponse = await fetch("http://127.0.0.1:9001/favourites", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(countryInfos),
+    });
+  };
 
   return (
     <div className="App">
@@ -60,7 +101,13 @@ function App() {
           <button onClick={asc}>Asc Sort</button>
           <button onClick={desc}>Desc Sort</button>
           <br></br>
-          <Countries countries={searchedCountry} onLearn={handleCountryDetails} action = {inputSearch} />
+          <Countries
+            countries={searchedCountry}
+            onLearn={handleCountryDetails}
+            actionInput={inputSearch}
+            buttonSymbol={pressed}
+            addToFavouritesButton={postWhenPressed}
+          />
         </div>
       )}
     </div>
