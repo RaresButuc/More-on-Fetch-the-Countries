@@ -1,12 +1,12 @@
-import express, { json, urlencoded } from "express";
-import cors from "cors";
-import { join } from "path";
+const express = require("express");
 const app = express();
+const cors = require("cors");
+const path = require("path");
 
-import { reader, writer } from "./fileReader";
-const filePathFavourites = join(`${__dirname}/favourites.json`);
+const { reader, writer } = require("./fileReader.js");
+const filePathFavourites = path.join(`${__dirname}/favourites.json`);
 
-app.use(json());
+app.use(express.json());
 app.use(urlencoded({ extended: false }));
 app.use(cors());
 

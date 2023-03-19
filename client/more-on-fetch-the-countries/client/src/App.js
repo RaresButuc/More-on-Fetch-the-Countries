@@ -25,18 +25,18 @@ function App() {
   }, []);
 
   //Favourites Fetch
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const info = await fetch("http://127.0.0.1:9001/favourites");
-        const favourites = await info.json();
-        setFavouritesFetch(favourites);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const info = await fetch("http://127.0.0.1:9001/favourites");
+  //       const favourites = await info.json();
+  //       setFavouritesFetch(favourites);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
 
   function handleCountryDetails(country) {
     setSelectedCountry(country);
@@ -72,15 +72,15 @@ function App() {
     setPressed("-");
 
     let countryInfos = {
-      Name: "",
-      Capital: "",
-      Independent: "",
-      Area: "",
-      Continent: "",
-      Region: "",
-      Subregion: "",
-      Languages: "",
-      Population: "",
+      name: "",
+      capital: "",
+      independent: "",
+      area: "",
+      continent: "",
+      region: "",
+      subregion: "",
+      languages: "",
+      population: "",
     };
 
     const reponse = await fetch("http://127.0.0.1:9001/favourites", {
