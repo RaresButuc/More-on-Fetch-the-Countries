@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import Countries from "./components/Countries";
 import CountryData from "./components/CountryData";
-import showFavoriteCountries from "./components/FavoriteCountries";
+import ShowFavoriteCountries from "./components/FavoriteCountries";
 
 function App() {
   const [data, setData] = useState([]);
@@ -58,15 +58,18 @@ function App() {
     setsearchedCountry([...desSorted]);
   };
 
-  const [showFavs, setShowFavs] = useState(false)
+  const [showFavs, setShowFavs] = useState(false);
+  const [favButt, setFavButt] = useState("Show Favourite Countries");
 
   const showFavouritesButton = () => {
-       if(showFavs === false) {
-       setShowFavs(true)
-       }else{
-        setShowFavs(false)
-       }
-  }
+    if (showFavs === false) {
+      setFavButt("Show All Countries");
+      setShowFavs(true);
+    } else {
+      setFavButt("Show Favourite Countries");
+      setShowFavs(false);
+    }
+  };
 
   return (
     <div className="App">
@@ -76,13 +79,17 @@ function App() {
         <div>
           <button onClick={asc}>Asc Sort</button>
           <button onClick={desc}>Desc Sort</button>
-          <button onClick={showFavouritesButton}></button>
+          <button onClick={showFavouritesButton}>{favButt}</button>
           <br></br>
-          <Countries
-            countries={searchedCountry}
-            onLearn={handleCountryDetails}
-            actionInput={inputSearch}
-          />
+          {!showFavs ? (
+            <Countries
+              countries={searchedCountry}
+              onLearn={handleCountryDetails}
+              actionInput={inputSearch}
+            />
+          ) : (
+            <ShowFavoriteCountries />
+          )}
         </div>
       )}
     </div>
