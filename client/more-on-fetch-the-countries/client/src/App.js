@@ -61,7 +61,11 @@ function App() {
   const [showFavs, setShowFavs] = useState(false)
 
   const showFavouritesButton = () => {
-       
+       if(showFavs === false) {
+       setShowFavs(true)
+       }else{
+        setShowFavs(false)
+       }
   }
 
   return (
@@ -72,7 +76,7 @@ function App() {
         <div>
           <button onClick={asc}>Asc Sort</button>
           <button onClick={desc}>Desc Sort</button>
-          <button onClick={}></button>
+          <button onClick={showFavouritesButton}></button>
           <br></br>
           <Countries
             countries={searchedCountry}
