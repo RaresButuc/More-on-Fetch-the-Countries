@@ -40,6 +40,7 @@ app.route("/favourites")
     favourites.push(req.body);
     console.log(req.body)
     writer(filePathFavourites, favourites);
+    res.send('Done')
 })
 
 app.listen(port, () => console.log(`http://127.0.0.1:${port}`));
