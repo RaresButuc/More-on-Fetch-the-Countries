@@ -63,7 +63,7 @@ function App() {
 
   const showFavouritesButton = () => {
     if (showFavs === false) {
-      setFavButt("Show All Countries");
+      setFavButt("Back");
       setShowFavs(true);
     } else {
       setFavButt("Show Favourite Countries");
@@ -88,7 +88,7 @@ function App() {
               actionInput={inputSearch}
             />
           ) : (
-            <ShowFavoriteCountries />
+            <ShowFavoriteCountries/>
           )}
         </div>
       )}
