@@ -5,7 +5,6 @@ const FavButton = ({ countryChosen }) => {
 
   const postWhenPressed = async () => {
     setPressed("-");
-    if (pressed === "+") {
       const response = await fetch("http://localhost:9001/favourites", {
         method: "POST",
         headers: {
@@ -13,7 +12,6 @@ const FavButton = ({ countryChosen }) => {
         },
         body: JSON.stringify(countryChosen),
       });
-    }
   };
 
   return <button onClick={postWhenPressed}>{pressed}</button>;

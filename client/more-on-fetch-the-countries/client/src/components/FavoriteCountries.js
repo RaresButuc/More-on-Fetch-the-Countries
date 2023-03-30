@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const ShowFavoriteCountries = ({countriesFav}) => {
+const ShowFavoriteCountries = () => {
   const [favourites, setFavourites] = useState(null);
 
   useEffect(() => {
