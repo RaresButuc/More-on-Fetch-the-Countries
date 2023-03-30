@@ -81,7 +81,7 @@ function App() {
       population: "",
     };
 
-    const reponse = await fetch("http://127.0.0.1:9001/favourites", {
+    const reponse = await fetch("http://localhost:9001/favourites", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
