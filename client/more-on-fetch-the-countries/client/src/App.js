@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import Countries from "./components/Countries";
 import CountryData from "./components/CountryData";
+import showFavoriteCountries from "./components/FavoriteCountries";
 
 function App() {
   const [data, setData] = useState([]);
@@ -57,6 +58,12 @@ function App() {
     setsearchedCountry([...desSorted]);
   };
 
+  const [showFavs, setShowFavs] = useState(false)
+
+  const showFavouritesButton = () => {
+       
+  }
+
   return (
     <div className="App">
       {selectedCountry ? (
@@ -65,6 +72,7 @@ function App() {
         <div>
           <button onClick={asc}>Asc Sort</button>
           <button onClick={desc}>Desc Sort</button>
+          <button onClick={}></button>
           <br></br>
           <Countries
             countries={searchedCountry}
