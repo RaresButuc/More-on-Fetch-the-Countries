@@ -6,8 +6,6 @@ import CountryData from "./components/CountryData";
 function App() {
   const [data, setData] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  //Pentru POST
-  const [favouritesFetched, setFavouritesFetch] = useState(null);
 
   //Countries Fetch
   useEffect(() => {
@@ -23,20 +21,6 @@ function App() {
     fetchData();
   }, []);
 
-  //Favourites Fetch
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const info = await fetch("http://127.0.0.1:9001/favourites");
-  //       const favourites = await info.json();
-  //       setFavouritesFetch(favourites);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
-
   function handleCountryDetails(country) {
     setSelectedCountry(country);
   }
@@ -44,50 +28,33 @@ function App() {
   const handleBack = () => {
     setSelectedCountry(null);
   };
-  const asc = () => {
-    let sorted = [...data].sort((a, b) =>
-      a.name.common > b.name.common ? 1 : -1
-    );
-    setData(sorted);
-  };
-  const desc = () => {
-    let desSorted = [...data].sort((a, b) =>
-      b.name.common > a.name.common ? 1 : -1
-    );
-    setData(desSorted);
-  };
 
   const [searchedCountry, setsearchedCountry] = useState([...data]);
 
   const inputSearch = (e) => {
     const searched = e.target.value;
-    const results = [...data].filter((all) =>
-      all.name.common.toLowerCase().includes(searched.toLowerCase())
-    );
-    setsearchedCountry(results);
+    if (searched.length > 0) {
+      const results = [...data].filter((all) =>
+        all.name.common.toLowerCase().includes(searched.toLowerCase())
+      );
+      setsearchedCountry(results);
+    } else {
+      setsearchedCountry([...data]);
+    }
   };
 
-  const postWhenPressed = async () => {
+  const asc = () => {
+    let sorted = searchedCountry.sort((a, b) =>
+      a.name.common > b.name.common ? 1 : -1
+    );
+    setsearchedCountry([...sorted]);
+  };
 
-    let countryInfos = {
-      name: "",
-      capital: "",
-      independent: "",
-      area: "",
-      continent: "",
-      region: "",
-      subregion: "",
-      languages: "",
-      population: "",
-    };
-
-    const reponse = await fetch("http://localhost:9001/favourites", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(countryInfos),
-    });
+  const desc = () => {
+    let desSorted = searchedCountry.sort((a, b) =>
+      b.name.common > a.name.common ? 1 : -1
+    );
+    setsearchedCountry([...desSorted]);
   };
 
   return (
@@ -103,7 +70,6 @@ function App() {
             countries={searchedCountry}
             onLearn={handleCountryDetails}
             actionInput={inputSearch}
-            addToFavouritesButton={postWhenPressed}
           />
         </div>
       )}
